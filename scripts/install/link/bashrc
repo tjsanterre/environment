@@ -1,0 +1,44 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# temp environment
+ENVIRONMENT_DIR="$HOME/environment"
+SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
+
+# Environment
+export EDITOR=vim
+export PS1="$ "
+
+
+# bash
+set -o vi
+set -o history
+export HISTCONTROL="ignorespace:erasedups"
+export HISTIGNORE="&:exit:[bf]g:clear:kill"
+
+# ls
+alias ls='ls --color=auto'
+alias la='ls -a'
+alias ll='ls -l'
+
+# man
+alias man='man -P less'
+
+# path
+export PATH="$ENVIRONMENT_DIR/bin:$PATH"
+
+# source scripts
+if [[ -d "$SOURCE_SCRIPTS_DIR" ]]; then
+	for script in $SOURCE_SCRIPTS_DIR/*; do
+		source $script
+	done
+fi
+
+# clear temp environment
+unset ENVIRONMENT_DIR
+unset SOURCE_SCRIPTS_DIR
+

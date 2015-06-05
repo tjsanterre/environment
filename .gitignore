@@ -10,3 +10,6 @@
 # Ingore the director for putting user-specific pre-built programs
 # These should be linked to bin
 /programs
+
+# Ignore editor files
+.*.swp
