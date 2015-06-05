@@ -1,0 +1,12 @@
+# Ignore the directories that created when building from source
+/bin
+/include
+/lib
+/share
+
+# Ignore the directory for storing sources
+/sources
+
+# Ingore the director for putting user-specific pre-built programs
+# These should be linked to bin
+/programs
