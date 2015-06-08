@@ -1,0 +1,128 @@
+" .vimrc
+
+" Options for vim and gvim
+set nocompatible " use Vim defaults and not Vi, required for Vundle
+filetype off " required for Vundle
+
+" Setup Vundle
+set rtp+=~/.vim/bundle/vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'taglist.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+" All plugins managed by Vundle need to be declared before this line.
+call vundle#end()
+filetype plugin indent on
+
+set nobackup " don't create a backup when editing
+set history=25 " number of lines of command-line history:
+
+" Backspace Options
+set backspace=indent,eol,start " enable more powerful backspace
+fixdel " fix delete key
+
+" Indenting Options
+set autoindent " copy indent from current line when starting a new line
+set smartindent " for new lines
+
+set expandtab    " do replace tabs with spaces
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+" Basic Visual Options
+"set bg=dark  " use a dark background
+set gcr=a:blinkwait0,a:block-cursor " use non-blinking block cursor
+set lcs=tab:>-,trail:-,extends:>,precedes:< " show tabs, trailing space
+set list     " turns on invisible characters
+set nowrap   " don't make it look like there are line breaks when there aren't
+set number   " show line numbers
+set numberwidth=3 " setup to show three digit line numbers
+set ruler    " show current row and column at the bottom right of the screen
+set showcmd  " show partially-typed commands
+set showmode " display the current mode
+set wildmenu " enable tab completion
+set wildmode=list:longest,full
+
+" Mouse Options
+set mouse=a  " enable the mouse
+set mousehide " hide mouse when typing
+
+" Search/Replace Options
+set hlsearch   " enable incremental highlight
+set incsearch  " enable incremental search
+set ignorecase " search case-insensitive
+set smartcase  " search case-sensitive if search contains upper-case letter
+" turn of search highlighting by pressing the space bar after a search
+:noremap <silent> <Space> :silent noh<Bar>echo<CR>
+
+" General Key Maps
+" move between buffer windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" use g+c to swap the current character with the next
+:noremap <silent> gc xph
+" use g+w to swap the current word with the next
+:noremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
+
+" Programming Specific (more or less)
+syntax enable " enable  syntax highlighting
+
+" Tags
+" looks in current directory, then up to root for tags file
+set tags=./tags;
+
+" open tag definition in a new tab (ctrl + \)
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+" open tag definition in a new vertical split (alt + \)
+map <A-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+set comments+=b:\" " treat lines starting with '"' as comments
+set showmatch      " briefly jump to matching brace/paren/bracket
+
+" Taglist
+" toggle taglist
+:noremap <silent> <F5> :TlistToggle<CR>
+
+" set where to look for tags
+set complete-=i
+
+"let Tlist_Exit_OnlyWindow = 1
+"let Tlist_Display_Prototype = 1
+let Tlist_WinWidth = 35
+
+" function to insert C++ ifdef header blocks
+function! AddHeaderIfDef()
+    let filename = "__" . system("basename " . bufname('') . "__ | sed 's/\\./_/g'")
+    let filename = toupper(filename)
+    execute "normal I#if ! defined " . filename . "#define       " . filename
+    normal 2o
+    execute "normal o#endif"
+    normal 2k
+endfunction
+map <F2> :call AddHeaderIfDef()<CR>
+
+" function to expand tabs to spaces
+map <F3> :%s/\t/    /g<CR>
+
+" function to condense spaces to tabs
+map <F4> :%s/    /\t/g<CR>
+
+colorscheme zenburn
+
+" GVIM Specific Options
+if has('gui_running')
+"    colorscheme softzen
+"    set gfn=Luxi\ Mono\ 10
+
+    set guioptions-=T " don't show toolbar
+
+    set foldmethod=syntax
+    set foldcolumn=1
+endif
+
