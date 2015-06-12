@@ -99,6 +99,10 @@ set complete-=i
 "let Tlist_Display_Prototype = 1
 let Tlist_WinWidth = 35
 
+" NERDTree
+" toggle tree
+:noremap <silent> <F6> :NERDTreeToggle<CR>
+
 " function to insert C++ ifdef header blocks
 function! AddHeaderIfDef()
     let filename = "__" . system("basename " . bufname('') . "__ | sed 's/\\./_/g'")
