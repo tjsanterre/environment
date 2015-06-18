@@ -5,7 +5,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# temp environment
+# Environment variables for this script
 ENVIRONMENT_DIR="$HOME/environment"
 SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
 
@@ -13,12 +13,14 @@ SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
 export EDITOR=vim
 export PS1="$ "
 
-
 # bash
 set -o vi
 set -o history
 export HISTCONTROL="ignorespace:erasedups"
-export HISTIGNORE="&:exit:[bf]g:clear:kill"
+export HISTIGNORE="&:exit:[bf]g:clear:kill:history"
+
+# grep
+alias rgrep='grep -R'
 
 # ls
 alias ls='ls --color=auto'
