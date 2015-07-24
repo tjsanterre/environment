@@ -1,6 +1,7 @@
 # Ignore the directories that created when building from source
 /bin
 /doc
+/etc
 /include
 /lib
 /share

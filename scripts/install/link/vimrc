@@ -17,6 +17,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'rust-lang/rust.vim'
 
 " All plugins managed by Vundle need to be declared before this line.
 call vundle#end()
@@ -102,11 +103,14 @@ set foldcolumn=1
 set comments+=b:\" " treat lines starting with '"' as comments
 set showmatch      " briefly jump to matching brace/paren/bracket
 
+" don't indent inside a namespace
+set cino=N-s
+
 " function to insert C++ ifdef header blocks
 function! AddHeaderIfDef()
-    let filename = "__" . system("basename " . bufname('') . "__ | sed 's/\\./_/g'")
+    let filename = system("basename " . bufname('') . " | sed 's/\\./_/g'")
     let filename = toupper(filename)
-    execute "normal I#if ! defined " . filename . "#define       " . filename
+    execute "normal I#ifndef " . filename . "#define " . filename
     normal 2o
     execute "normal o#endif"
     normal 2k
