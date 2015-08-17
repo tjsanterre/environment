@@ -16,3 +16,6 @@ if [[ ! -d $HOME/.vim/bundle ]]; then
     git clone http://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/vundle.vim
 fi
 
+# Install sbuild, customized scons build for c++.
+mkdir -p $HOME/.scons/site_scons
+ln -s -f $install_dir/link/sbuild.py $HOME/.scons/site_scons/sbuild.py
