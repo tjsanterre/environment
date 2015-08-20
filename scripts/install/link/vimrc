@@ -52,6 +52,7 @@ set showcmd  " show partially-typed commands
 set showmode " display the current mode
 set wildmenu " enable tab completion
 set wildmode=list:longest,full
+set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg
 
 
 """ GVIM Specific Options
@@ -153,4 +154,13 @@ let NERDTreeIgnore=['\~$', '\.o$[[file]]']
 """ Fugitive Configuration
 " always force diffs to split vertically instead of horizontally
 set diffopt+=vertical
+
+
+""" CtrlP Configuration
+" add files and directories to ignore
+let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
+
+" open ctrlp for current directory
+map <Leader>p :CtrlP .
+
 
