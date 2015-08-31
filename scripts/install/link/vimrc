@@ -19,6 +19,7 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'rust-lang/rust.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'wesQ3/vim-windowswap'
 
 " All plugins managed by Vundle need to be declared before this line.
 call vundle#end()
@@ -104,6 +105,12 @@ set foldmethod=syntax
 set foldcolumn=1
 set comments+=b:\" " treat lines starting with '"' as comments
 set showmatch      " briefly jump to matching brace/paren/bracket
+
+" set syntax for unrecognized files
+autocmd BufNewFile,BufRead sconstruct set filetype=python
+autocmd BufNewFile,BufRead SConstruct set filetype=python
+autocmd BufNewFile,BufRead sconscript set filetype=python
+autocmd BufNewFile,BufRead SConscript set filetype=python
 
 " don't indent inside a namespace
 set cino=N-s
