@@ -18,6 +18,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'rust-lang/rust.vim'
+Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim'
 Plugin 'wesQ3/vim-windowswap'
 
@@ -53,7 +54,7 @@ set showcmd  " show partially-typed commands
 set showmode " display the current mode
 set wildmenu " enable tab completion
 set wildmode=list:longest,full
-set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg
+set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg,*.exe,*.a,*.o
 
 
 """ GVIM Specific Options
@@ -165,7 +166,14 @@ set diffopt+=vertical
 
 """ CtrlP Configuration
 " add files and directories to ignore
-let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|a|o|swp|gz|zip|bz2|vcproj|sln|pkg)$',
+    \ }
+
+
+" don't limit the number of indexed files
+let g:ctrlp_max_files = 0
 
 " open ctrlp for current directory
 map <Leader>p :CtrlP .

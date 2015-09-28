@@ -40,6 +40,9 @@ if [[ -d "$SOURCE_SCRIPTS_DIR" ]]; then
 	done
 fi
 
+export GOROOT='/home/tsanterre/environment/programs/go'
+export GOPATH='/home/tsanterre/Code/learn/go'
+
 # clear temp environment
 unset ENVIRONMENT_DIR
 unset SOURCE_SCRIPTS_DIR
