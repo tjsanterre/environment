@@ -21,6 +21,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim'
 Plugin 'wesQ3/vim-windowswap'
+Plugin 'rhysd/vim-clang-format'
 
 " All plugins managed by Vundle need to be declared before this line.
 call vundle#end()
@@ -162,6 +163,15 @@ let NERDTreeIgnore=['\~$', '\.o$[[file]]']
 """ Fugitive Configuration
 " always force diffs to split vertically instead of horizontally
 set diffopt+=vertical
+
+
+""" Clang Format Configuration
+" run clang format
+nnoremap <Leader>f :ClangFormat<CR>
+vnoremap <Leader>f :ClangFormat<CR>
+
+" detect format file
+let g:clang_format#detect_style_file = 1
 
 
 """ CtrlP Configuration
