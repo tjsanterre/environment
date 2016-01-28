@@ -1,5 +1,10 @@
 " .vimrc
 
+
+" Map leaders before anything else so all mappings pick up new leader.
+let mapleader = ","
+let localleader = ","
+
 """ General Options
 set nocompatible " use Vim defaults and not Vi, required for Vundle
 set nobackup " don't create a backup when editing
@@ -20,9 +25,11 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'rust-lang/rust.vim'
 Plugin 'fatih/vim-go'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'wesQ3/vim-windowswap'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'morhetz/gruvbox'
+Plugin 'bling/vim-airline'
 
 " All plugins managed by Vundle need to be declared before this line.
 call vundle#end()
@@ -44,7 +51,8 @@ set tabstop=4
 
 
 """ Basic Visual Options
-colorscheme zenburn
+set background=dark
+colorscheme gruvbox
 set gcr=a:blinkwait0,a:block-cursor " use non-blinking block cursor
 set lcs=tab:>-,trail:-,extends:>,precedes:< " show tabs, trailing space
 set list     " turns on invisible characters
@@ -57,6 +65,10 @@ set showmode " display the current mode
 set wildmenu " enable tab completion
 set wildmode=list:longest,full
 set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg,*.exe,*.a,*.o
+
+
+""" Status Line
+set laststatus=2 " always show status line
 
 
 """ GVIM Specific Options
@@ -81,7 +93,6 @@ set smartcase  " search case-sensitive if search contains upper-case letter
 
 
 """ Key Maps
-let mapleader = ","
 
 " move between buffer windows
 map <C-j> <C-W>j
@@ -117,6 +128,14 @@ autocmd BufNewFile,BufRead SConscript set filetype=python
 
 " don't indent inside a namespace
 set cino=N-s
+
+" function to insert ifdef block
+function! AddIfDef(name)
+    execute "normal I#ifdef " . a:name
+    normal 2o
+    execute "normal o#endif // " . a:name
+endfunction
+com -nargs=1 Ifdef call AddIfDef(<f-args>)
 
 " function to insert C++ ifdef header blocks
 function! AddHeaderIfDef()
@@ -186,7 +205,9 @@ let g:ctrlp_custom_ignore = {
 " don't limit the number of indexed files
 let g:ctrlp_max_files = 0
 
+" open ctrlp from source control root directory (.git/.svn/.hg)
+map <Leader>p :CtrlP <CR>
 " open ctrlp for current directory
-map <Leader>p :CtrlP .
+map <Leader>P :CtrlP . <CR>
 
 
