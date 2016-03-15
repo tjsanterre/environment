@@ -100,6 +100,10 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" move between tabs
+map <C-Left> :tabprevious <CR>
+map <C-Right> :tabnext <CR>
+
 " user <Leader>e to edit a file relative to the current buffer
 map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>t :tabe <C-R>=expand("%:p:h") . "/" <CR>
@@ -181,7 +185,7 @@ let NERDTreeIgnore=['\~$', '\.o$[[file]]']
 
 
 """ Fugitive Configuration
-" always force diffs to split vertically instead of horizontally
+" force diffs to always split vertically
 set diffopt+=vertical
 
 
@@ -210,4 +214,7 @@ map <Leader>p :CtrlP <CR>
 " open ctrlp for current directory
 map <Leader>P :CtrlP . <CR>
 
+
+""" You Complete Me Configuration
+"let g:ycm_collect_identifiers_from_tags_files = 1
 
