@@ -13,7 +13,7 @@ if [[ ! -d $HOME/.vim/colors ]]; then
 fi
 if [[ ! -d $HOME/.vim/bundle ]]; then
     mkdir -p $HOME/.vim/bundle
-    git clone http://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/vundle.vim
+    git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/vundle.vim
 fi
 
 # Install sbuild, customized scons build for c++.
