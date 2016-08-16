@@ -123,6 +123,7 @@ set foldmethod=syntax
 set foldcolumn=1
 set comments+=b:\" " treat lines starting with '"' as comments
 set showmatch      " briefly jump to matching brace/paren/bracket
+set omnifunc=syntaxcomplete#Complete
 
 " set syntax for unrecognized files
 autocmd BufNewFile,BufRead sconstruct set filetype=python
@@ -198,10 +199,26 @@ vnoremap <Leader>f :ClangFormat<CR>
 let g:clang_format#detect_style_file = 1
 
 
+""" YouCompleteMe Configuration
+"let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+"let g:ycm_add_preview_to_completeopt = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+
+
 """ CtrlP Configuration
+let g:ctrlp_working_path_mode = 'rw'
+
+" add custom command
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others && git submodule foreach --recursive git ls-files'],
+    \ },
+\ }
+
 " add files and directories to ignore
 let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/]\.(git|hg|svn)$',
+    \ 'dir': '\v[\/](\.git|\.hg|\.svn|build|release)$',
     \ 'file': '\v\.(exe|so|a|o|swp|gz|zip|bz2|vcproj|sln|pkg)$',
     \ }
 
