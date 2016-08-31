@@ -78,8 +78,8 @@ set laststatus=2 " always show status line
 " use 'zg' to add a word to the dictionary
 set spell spelllang=en_us
 
-" Map Ctrl+s to toggle spell checking
-map <C-s> :setlocal spell! spelllang=en_us spell?<CR>
+" Map Leader,S to toggle spell checking
+:map <Leader>S :setlocal spell! spelllang=en_us<CR>
 
 
 
