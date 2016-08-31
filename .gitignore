@@ -4,6 +4,8 @@
 /etc
 /include
 /lib
+/lib64
+/libexec
 /share
 
 # Ignore the directory for storing sources

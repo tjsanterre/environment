@@ -52,6 +52,8 @@ set tabstop=4
 
 """ Basic Visual Options
 set background=dark
+let g:gruvbox_bold = 0
+let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 set gcr=a:blinkwait0,a:block-cursor " use non-blinking block cursor
 set lcs=tab:>-,trail:-,extends:>,precedes:< " show tabs, trailing space
@@ -71,9 +73,19 @@ set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg,*.exe,*.a,*.o
 set laststatus=2 " always show status line
 
 
+""" Spell Check
+" use 'z=' to get list of suggestions
+" use 'zg' to add a word to the dictionary
+set spell spelllang=en_us
+
+" Map Ctrl+s to toggle spell checking
+map <C-s> :setlocal spell! spelllang=en_us spell?<CR>
+
+
+
 """ GVIM Specific Options
 if has('gui_running')
-    set guifont=Monospace\ 10.5
+    set guifont=Monospace\ 11
     set guioptions-=T " don't show toolbar
 endif
 
