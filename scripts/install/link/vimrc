@@ -15,7 +15,7 @@ set history=25 " number of lines of command-line history:
 filetype off " required for Vundle
 set rtp+=~/.vim/bundle/vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'taglist.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
@@ -71,6 +71,7 @@ set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg,*.exe,*.a,*.o
 
 """ Status Line
 set laststatus=2 " always show status line
+set statusline+=%{fugitive#statusline()}
 
 
 """ Spell Check
