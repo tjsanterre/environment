@@ -1,0 +1,17 @@
+[color]
+    ui = auto
+[user]
+    name = Tyler Santerre
+    email = tsanterre@idirectgov.com
+[core]
+    editor = vim
+[pull]
+	rebase = false
+[push]
+	default = simple
+[status]
+	submodulesummary = true
+[alias]
+	pup = "!f(){ git pull \"$@\" && git submodule init && git submodule sync && git submodule update --recursive; }; f"
+	pulls = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
+	clones = clone --recursive

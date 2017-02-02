@@ -36,6 +36,11 @@ alias man='man -P less'
 # path
 export PATH="$ENVIRONMENT_DIR/bin:$PATH"
 
+# xdg environment variables
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_CACHE="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
 # source scripts
 if [[ -d "$SOURCE_SCRIPTS_DIR" ]]; then
 	for script in $SOURCE_SCRIPTS_DIR/*; do
