@@ -54,7 +54,7 @@ if [[ -f "$HOME/.cargo/env" ]]; then
 fi
 
 export GOROOT='/home/tsanterre/environment/programs/go'
-export GOPATH='/home/tsanterre/Code/learn/go'
+export GOPATH='/home/tsanterre/code/learn/go'
 
 # clear temp environment
 unset ENVIRONMENT_DIR
