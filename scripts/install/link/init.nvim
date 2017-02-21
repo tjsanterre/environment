@@ -1,0 +1,212 @@
+" neovim configuration file
+
+""" General Options
+" Map leaders before anything else so all mappings pick up new leader.
+let mapleader = ","
+let localleader = ","
+
+set nobackup " don't create a backup when editing
+
+
+""" vim-plug Configuration
+call plug#begin("$XDG_CONFIG_HOME/nvim/plugged")
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'cazador481/fakeclip.neovim'
+Plug 'myusuf3/numbers.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'taglist.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'wesQ3/vim-windowswap'
+
+" Color Schemes
+Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+
+""" Indenting Options
+set autoindent
+set smartindent
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+
+""" Basic Visual Options
+set termguicolors " enable true colors in terminal
+"set background=dark
+let g:gruvbox_bold = 0
+let g:gruvbox_contrast_dark = 'soft'
+colorscheme onedark
+set gcr=a:blinkwait0,a:block-cursor " use non-blinking block cursor
+set lcs=tab:>-,trail:-,extends:>,precedes:< " show tabs, trailing space
+set list     " turns on invisible characters
+set nowrap   " don't make it look like there are line breaks when there aren't
+set number   " show line numbers
+set numberwidth=3 " setup to show three digit line numbers
+set ruler    " show current row and column at the bottom right of the screen
+set showcmd  " show partially-typed commands
+set showmode " display the current mode
+set wildmenu " enable tab completion
+set wildmode=list:longest,full
+set wildignore+=*.so,*.swp,*.zip,*.png,*.jpg,*.exe,*.a,*.o
+
+
+""" Status Line
+set laststatus=2 " always show status line
+set statusline+=%{fugitive#statusline()}
+
+
+""" Spell Check
+" use 'z=' to get list of suggestions
+" use 'zg' to add a word to the dictionary
+set spell spelllang=en_us
+
+" Map Leader,S to toggle spell checking
+:map <Leader>S :setlocal spell! spelllang=en_us<CR>
+
+
+""" Clipboard
+set clipboard+=unnamedplus
+
+
+""" Mouse Options
+set mousehide " hide mouse when typing
+
+
+""" Search and Replace Options
+set ignorecase " search case-insensitive
+set smartcase " search case-insensitive if search contains upper case letter
+" turn of search highlighting by pressing the space bar after a search
+:noremap <silent> <Space> :silent noh<Bar>echo<CR>
+
+
+""" Key Maps
+
+" move between buffer windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" move between tabs
+map <C-Left> :tabprevious <CR>
+map <C-Right> :tabnext <CR>
+
+" user <Leader>e to edit a file relative to the current buffer
+map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>t :tabe <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>s :split <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>v :vsplit <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>V :vsplit <CR> <bar> <C-l> <CR> <bar> :e <C-R>=expand("%:p:h") . "/"  <CR>
+
+" use g+c to swap the current character with the next
+:noremap <silent> gc xph
+" use g+w to swap the current word with the next
+:noremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
+
+
+""" Programming Specific (more or less)
+set foldmethod=syntax
+set foldcolumn=1
+set comments+=b:\" " treat lines starting with '"' as comments
+set showmatch      " briefly jump to matching brace/paren/bracket
+set omnifunc=syntaxcomplete#Complete
+
+" set syntax for unrecognized files
+autocmd BufNewFile,BufRead sconstruct set filetype=python
+autocmd BufNewFile,BufRead SConstruct set filetype=python
+autocmd BufNewFile,BufRead sconscript set filetype=python
+autocmd BufNewFile,BufRead SConscript set filetype=python
+
+" don't indent inside a c++ namespace
+set cino=N-s
+
+" function to insert ifdef block
+function! AddIfDef(name)
+    execute "normal I#ifdef " . a:name
+    normal 2o
+    execute "normal o#endif // " . a:name
+endfunction
+com -nargs=1 Ifdef call AddIfDef(<f-args>)
+
+" function to insert C++ ifdef header blocks
+function! AddHeaderIfDef()
+    let filename = system("basename " . bufname('') . " | sed 's/\\./_/g'")
+    let filename = toupper(filename)
+    execute "normal I#ifndef " . filename . "#define " . filename
+    normal 2o
+    execute "normal o#endif"
+    normal 2k
+endfunction
+map <F2> :call AddHeaderIfDef()<CR>
+
+" function to expand tabs to spaces
+map <F3> :%s/\t/    /g<CR>
+
+" function to condense spaces to tabs
+map <F4> :%s/    /\t/g<CR>
+
+
+""" Tags/Taglist Configuraiton
+" looks in current directory, then up to root for tags file
+set tags=./tags;
+
+" open tag definition in a new tab (ctrl + \)
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+" open tag definition in a new vertical split (alt + \)
+map <A-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" set where to look for tags
+set complete-=i
+
+" toggle taglist
+:noremap <silent> <F5> :TlistToggle<CR>
+let Tlist_WinWidth = 35
+
+
+""" NERDTree Configuration
+" toggle tree
+:noremap <silent> <F6> :NERDTreeToggle<CR>
+
+let NERDTreeIgnore=['\~$', '\.o$[[file]]']
+
+
+""" Fugitive Configuration
+" force diffs to always split vertically
+set diffopt+=vertical
+
+
+""" CtrlP Configuration
+let g:ctrlp_working_path_mode = 'rw'
+
+" add custom command
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others && git submodule foreach --recursive git ls-files'],
+    \ },
+\ }
+
+" add files and directories to ignore
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.git|\.hg|\.svn|build|release)$',
+    \ 'file': '\v\.(exe|so|a|o|swp|gz|zip|bz2|vcproj|sln|pkg)$',
+    \ }
+
+
+" don't limit the number of indexed files
+let g:ctrlp_max_files = 0
+
+" open ctrlp from source control root directory (.git/.svn/.hg)
+map <Leader>p :CtrlP <CR>
+" open ctrlp for current directory
+map <Leader>P :CtrlP . <CR>
+
+
