@@ -1,0 +1,13 @@
+{
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.editor.enablePreview": false,
+    "workbench.list.openMode": "doubleClick",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.vscode": true,
+    }
+}
