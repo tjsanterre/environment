@@ -1,0 +1,22 @@
+# Bash aliases.
+# This file should be sourced from .bashrc.
+
+# ctags
+alias ctags='ctags --fields=+l'
+
+# grep
+alias grep='grep --color=auto'
+alias rgrep='grep -R'
+
+# make less more friendly for non-text input files see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# ls
+alias ls='ls --color=auto'
+alias la='ls -A'
+alias ll='ls -alF'
+alias l='ls -CF'
+
+# man
+alias man='man -P less'
+

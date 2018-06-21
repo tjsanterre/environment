@@ -1,5 +1,11 @@
 # .bashrc
 
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -11,27 +17,21 @@ SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
 
 # Environment
 export EDITOR=vim
-export PS1="$ "
 
 # bash
 set -o vi
 set -o history
-export HISTCONTROL="ignorespace:erasedups"
+
+shopt -s histappend
+export HISTCONTROL='ignoreboth'
 export HISTIGNORE="&:exit:[bf]g:clear:kill:history"
 
-# ctags
-alias ctags='ctags --fields=+l'
+shopt -s checkwinsize
 
-# grep
-alias rgrep='grep -R'
-
-# ls
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -l'
-
-# man
-alias man='man -P less'
+# go
+export GOPATH=$HOME/go
+export GOROOT=/usr/lib/go-1.10
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
 # path
 export PATH="$ENVIRONMENT_DIR/bin:$PATH"
@@ -41,20 +41,31 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_CACHE="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+# source aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# source bash prompt
+if [ -f ~/.bash_prompt ]; then
+    . ~/.bash_prompt
+fi
+
+# source bash completion scripts
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # source scripts
 if [[ -d "$SOURCE_SCRIPTS_DIR" ]]; then
 	for script in $SOURCE_SCRIPTS_DIR/*; do
 		source $script
 	done
 fi
-
-# source rust environment
-if [[ -f "$HOME/.cargo/env" ]]; then
-    source $HOME/.cargo/env
-fi
-
-export GOROOT='/home/tsanterre/environment/programs/go'
-export GOPATH='/home/tsanterre/code/learn/go'
 
 # clear temp environment
 unset ENVIRONMENT_DIR
