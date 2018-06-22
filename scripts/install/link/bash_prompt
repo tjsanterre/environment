@@ -8,7 +8,7 @@ if [ -x $GOPATH/bin/powerline-go ]; then
     }
 
     function _update_ps1() {
-        PS1="$($GOPATH/bin/powerline-go -mode flat -modules ssh,cwd,perms,gitlite,jobs,exit,root -error $?)"
+        PS1="$($GOPATH/bin/powerline-go -modules ssh,cwd,perms,git,jobs,exit,root -error $?)"
     }
 
     if [ "$TERM" != "linux" ]; then

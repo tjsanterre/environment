@@ -29,7 +29,7 @@ export HISTIGNORE="&:exit:[bf]g:clear:kill:history"
 shopt -s checkwinsize
 
 # go
-export GOPATH=$HOME/go
+export GOPATH=$HOME/code/go
 export GOROOT=/usr/lib/go-1.10
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
