@@ -9,5 +9,8 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/.vscode": true,
-    }
+    },
+    "editor.minimap.enabled": false,
+    "window.title": "${appName}${separator}${rootName}${separator}${activeEditorShort} ${dirty}",
+    "workbench.colorTheme": "One Dark Pro",
 }
