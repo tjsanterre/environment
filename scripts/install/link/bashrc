@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Environment variables for this script
-ENVIRONMENT_DIR="$HOME/environment"
+ENVIRONMENT_DIR="$HOME/.config/environment"
 SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
 
 # Environment
@@ -27,9 +27,6 @@ export GOPATH=$HOME/code/go
 export GOROOT=/usr/lib/go-1.10
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
-# path
-export PATH="$ENVIRONMENT_DIR/bin:$PATH"
-
 # xdg environment variables
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_CACHE="$HOME/.cache"
@@ -37,20 +34,20 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 # source aliases
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # source bash prompt
 if [ -f ~/.bash_prompt ]; then
-    . ~/.bash_prompt
+    source ~/.bash_prompt
 fi
 
 # source bash completion scripts
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
+    source /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+    source /etc/bash_completion
   fi
 fi
 
