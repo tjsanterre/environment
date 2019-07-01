@@ -24,8 +24,17 @@ shopt -s checkwinsize
 
 # go
 export GOPATH=$HOME/code/go
-export GOROOT=/usr/lib/go-1.10
+export GOBIN=$GOPATH/bin
+export GOROOT=$GOPATH/lang/go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+
+# kube
+export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/aws-dev:$HOME/.kube/development:$HOME/.kube/contexts"
+
+# perlbrew
+if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
+    source $HOME/perl5/perlbrew/etc/bashrc
+fi
 
 # xdg environment variables
 export XDG_CONFIG_HOME="$HOME/.config"
