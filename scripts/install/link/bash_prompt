@@ -1,14 +1,16 @@
 # bash_prompt
 # Should be sourced by .bashrc to set the prompt and terminal title.
 
-if [ -x $GOPATH/bin/powerline-go ]; then
+if [ -x $HOME/code/go/bin/powerline-go ]; then
 
     function _update_title() {
         echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
     }
 
     function _update_ps1() {
-        PS1="$($GOPATH/bin/powerline-go -theme $HOME/.config/powerline-go/theme.json -modules termtitle,perlbrew,ssh,cwd,perms,git,jobs,exit,root -path-aliases \~/code/activestate/camel=camel -error $?)"
+        #PS1="$($GOBIN/powerline-go -theme $HOME/.config/powerline-go/theme.json -modules termtitle,perlbrew,ssh,cwd,perms,git,jobs,exit,root -path-aliases \~/code/activestate/camel=camel -error $?)"
+        #PS1="$($HOME/code/go/bin/powerline-go -theme $HOME/.config/powerline-go/theme.json -modules termtitle,cwd,git,exit -error $?)"
+        PS1="$($HOME/code/go/bin/powerline-go -modules termtitle,cwd,git,exit -error $?)"
     }
 
     if [ "$TERM" != "linux" ]; then

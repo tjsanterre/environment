@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Environment variables for this script
-ENVIRONMENT_DIR="$HOME/.config/environment"
+ENVIRONMENT_DIR="$HOME/environment"
 SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
 
 # Environment
@@ -19,22 +19,24 @@ set -o history
 shopt -s histappend
 export HISTCONTROL='ignoreboth'
 export HISTIGNORE="&:exit:[bf]g:clear:kill:history"
+export PAGER='less'
 
 shopt -s checkwinsize
 
 # go
 export GOPATH=$HOME/code/go
-export GOBIN=$GOPATH/bin
-export GOROOT=$GOPATH/lang/go
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
 # kube
-export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/aws-dev:$HOME/.kube/development:$HOME/.kube/contexts"
+# export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/aws-dev:$HOME/.kube/development:$HOME/.kube/contexts"
+export KUBECONFIG="$HOME/.kube/development"
 
 # perlbrew
 if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source $HOME/perl5/perlbrew/etc/bashrc
 fi
+
+# PATH
+export PATH=$GOPATH/bin:/home/tyler/.local/bin:$PATH
 
 # xdg environment variables
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -48,8 +50,10 @@ fi
 
 # source bash prompt
 if [ -f ~/.bash_prompt ]; then
-    source ~/.bash_prompt
+  source ~/.bash_prompt
 fi
+#export PS1="$ "
+#export PROMPT_COMMAND='echo -en "\033]0; $("pwd") \a"'
 
 # source bash completion scripts
 if ! shopt -oq posix; then
@@ -62,24 +66,18 @@ fi
 
 # source scripts
 if [[ -d "$SOURCE_SCRIPTS_DIR" ]]; then
-	for script in $SOURCE_SCRIPTS_DIR/*; do
-		source $script
-	done
+    for script in $SOURCE_SCRIPTS_DIR/*; do
+        source $script
+    done
 fi
 
 # clear temp environment
 unset ENVIRONMENT_DIR
 unset SOURCE_SCRIPTS_DIR
 
-
-# automatically attach to tmux session
-#if [[ "$TMUX" == "" ]] && [[ "$SSH_CONNECTION" != "" ]]; then
-    ## attempt to discover a detached session and attach it, else create a new session
-    #me=$(whoami)
-    #if tmux has-session t $me 2>/dev/null; then
-        #tmux -2 attach-session -t $me
-    #else
-        #tmux -2 new-session -s $me
-    #fi
-#fi
-
+# -- START ACTIVESTATE INSTALLATION
+export PATH="/home/tyler/.cache/asbazel/output/external/state_tool_binary/files/bin:$PATH"
+# -- STOP ACTIVESTATE INSTALLATION
+# -- START ACTIVESTATE DEFAULT RUNTIME ENVIRONMENT
+export PATH="/home/tyler/.cache/activestate/bin:$PATH"
+# -- STOP ACTIVESTATE DEFAULT RUNTIME ENVIRONMENT

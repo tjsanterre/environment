@@ -1,8 +1,15 @@
 # Bash aliases.
 # This file should be sourced from .bashrc.
 
+# clear
+alias c='/usr/bin/clear'
+
 # ctags
 alias ctags='ctags --fields=+l'
+
+# go
+#alias rgo='richgo'
+alias gotest='go test -v -race -failfast -p 4 -timeout 0 -count 1'
 
 # grep
 alias grep='grep --color=auto'
@@ -20,3 +27,6 @@ alias l='ls -CF'
 # man
 alias man='man -P less'
 
+# python
+#alias python='python3.7'
+#alias python3='python3.7'

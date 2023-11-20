@@ -2,16 +2,26 @@
     ui = auto
 [user]
     name = Tyler Santerre
-    email = tsanterre@idirectgov.com
+    email = tylers@activestate.com
 [core]
     editor = vim
+    packedGitLimit = 512m
+    packedGitWindowSize = 512m
+[pack]
+    deltaCacheSize = 2047m
+    packSizeLimit = 2047m
+    windowMemory = 2047m
 [pull]
-	rebase = false
+	rebase = true
 [push]
-	default = simple
+	default = current
 [status]
 	submodulesummary = true
 [alias]
 	pup = "!f(){ git pull \"$@\" && git submodule init && git submodule sync && git submodule update --recursive; }; f"
 	pulls = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
 	clones = clone --recursive
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[fetch]
+	prune = true

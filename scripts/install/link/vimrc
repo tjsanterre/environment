@@ -16,7 +16,7 @@ filetype off " required for Vundle
 set rtp+=~/.vim/bundle/vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'taglist.vim'
+"Plugin 'taglist.vim'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
