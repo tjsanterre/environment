@@ -52,8 +52,6 @@ fi
 if [ -f ~/.bash_prompt ]; then
   source ~/.bash_prompt
 fi
-#export PS1="$ "
-#export PROMPT_COMMAND='echo -en "\033]0; $("pwd") \a"'
 
 # source bash completion scripts
 if ! shopt -oq posix; then

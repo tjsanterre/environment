@@ -23,3 +23,5 @@ if [[ ! -d $HOME/.vim/bundle ]]; then
     mkdir -p $HOME/.vim/bundle
     git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/vundle.vim
 fi
+
+# Install useful tools.
