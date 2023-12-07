@@ -1,20 +1,24 @@
 # bash_prompt
 # Should be sourced by .bashrc to set the prompt and terminal title.
 
-if [ -x $HOME/code/go/bin/powerline-go ]; then
+if [ -x $GOPATH/bin/powerline-go ]; then
 
     function _update_title() {
-        echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
+        #echo -ne "\033]0;${USER}@${HOSTNAME}: \007"
+        t=${PWD/$HOME/'~'} # Replace $HOME with ~
+        t=${t/*TheHomeRepot/'~/THR'} # Replace path with TheHomeReport with ~/THR
+        echo -ne "\033]0;$t\007"
     }
 
     function _update_ps1() {
         #PS1="$($GOBIN/powerline-go -theme $HOME/.config/powerline-go/theme.json -modules termtitle,perlbrew,ssh,cwd,perms,git,jobs,exit,root -path-aliases \~/code/activestate/camel=camel -error $?)"
         #PS1="$($HOME/code/go/bin/powerline-go -theme $HOME/.config/powerline-go/theme.json -modules termtitle,cwd,git,exit -error $?)"
-        PS1="$($GOPATH/bin/powerline-go -modules cwd,git,exit -error $?)"
+        PS1="$($GOPATH/bin/powerline-go -hostname-only-if-ssh -modules cwd,git,exit -error $?)"
     }
 
     if [ "$TERM" != "linux" ]; then
-        PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+        PROMPT_COMMAND="_update_title;_update_ps1; $PROMPT_COMMAND"
+        # PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
     fi
 
 else
@@ -60,3 +64,4 @@ else
         ;;
     esac
 fi
+

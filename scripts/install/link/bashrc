@@ -23,6 +23,11 @@ export PAGER='less'
 
 shopt -s checkwinsize
 
+# perl via perlbrew
+if [[ -f $HOME/perl5/perlbrew/etc/bashrc ]]; then
+    source $HOME/perl5/perlbrew/etc/bashrc
+fi
+
 # go
 export GOPATH=$HOME/code/go
 
@@ -74,7 +79,7 @@ unset ENVIRONMENT_DIR
 unset SOURCE_SCRIPTS_DIR
 
 # -- START ACTIVESTATE INSTALLATION
-export PATH="/home/tyler/.cache/asbazel/output/external/state_tool_binary/files/bin:$PATH"
+export PATH="/home/tyler/.cache/asbazel/output/external/_main~tools~state_tool_binary/files/bin:$PATH"
 # -- STOP ACTIVESTATE INSTALLATION
 # -- START ACTIVESTATE DEFAULT RUNTIME ENVIRONMENT
 export PATH="/home/tyler/.cache/activestate/bin:$PATH"

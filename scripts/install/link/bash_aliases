@@ -27,6 +27,6 @@ alias l='ls -CF'
 # man
 alias man='man -P less'
 
-# python
-#alias python='python3.7'
-#alias python3='python3.7'
+# state
+alias s='[[ -z ${ACTIVESTATE_ACTIVATED} ]] && echo "Not in an activated state" || echo "Activated: $ACTIVESTATE_ACTIVATED"'
+
