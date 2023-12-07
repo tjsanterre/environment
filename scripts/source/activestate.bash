@@ -13,6 +13,10 @@ export KT_BROKERS="$KT_BROKERS_PROD"
 # Try here. Delete if it becomes a problem.
 export PATH=$HOME/code/activestate/TheHomeRepot/third_party/bin:$PATH
 
+function install_state_tool() {
+    sh <(curl -q https://platform.activestate.com/dl/cli/install.sh) -b beta --force
+}
+
 function thr() {
     #kperl
     export PATH=$PWD/third_party/bin:$PATH
