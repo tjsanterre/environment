@@ -58,3 +58,8 @@ function thr() {
 function dashboard() {
     export PATH=$PWD/service/dashboard/node_modules/.bin:$PATH
 }
+
+function drop-test-dbs() {
+    psql -l | grep '.*-test-.*' | cut -d '|' -f 1 | xargs -n 1 dropdb
+    psql -l | grep 'test-.*' | cut -d '|' -f 1 | xargs -n 1 dropdb
+}

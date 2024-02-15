@@ -30,3 +30,5 @@ alias man='man -P less'
 # state
 alias s='[[ -z ${ACTIVESTATE_ACTIVATED} ]] && echo "Not in an activated state" || echo "Activated: $ACTIVESTATE_ACTIVATED"'
 
+# fix wsl2 not synching time
+alias fix-time='sudo hwclock -s'
