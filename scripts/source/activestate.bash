@@ -48,6 +48,10 @@ function state-tool-pr() {
 
 # Install state tool from beta branch.
 function install-state-tool() {
+    sh <(curl -q https://platform.activestate.com/dl/cli/install.sh)
+}
+
+function install-state-tool-beta() {
     sh <(curl -q https://platform.activestate.com/dl/cli/install.sh) -b beta --force
 }
 
