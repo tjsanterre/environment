@@ -2,7 +2,7 @@
 
 #alias bazel='bazelisk'
 #alias minik='minikube kubectl --'
-export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/development
+export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/development:$HOME/.kube/production
 export KT_BROKERS_DEV=kafka-development.activestate.build:31090,kafka-development.activestate.build:31091,kafka-development.activestate.build:31092
 export KT_BROKERS_PROD=kafka-production.activestate.build:31090,kafka-production.activestate.build:31091,kafka-production.activestate.build:31092
 export KT_BROKERS="$KT_BROKERS_PROD"

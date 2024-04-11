@@ -31,10 +31,6 @@ fi
 # go
 export GOPATH=$HOME/code/go
 
-# kube
-# export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/aws-dev:$HOME/.kube/development:$HOME/.kube/contexts"
-export KUBECONFIG="$HOME/.kube/development"
-
 # perlbrew
 if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source $HOME/perl5/perlbrew/etc/bashrc
