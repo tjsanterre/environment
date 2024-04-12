@@ -1,5 +1,7 @@
 # ActiveState specific environment and functions.
 
+export AWS_PROFILE=sso
+
 #alias bazel='bazelisk'
 #alias minik='minikube kubectl --'
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/development:$HOME/.kube/production
