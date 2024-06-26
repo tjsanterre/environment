@@ -14,7 +14,7 @@ export PATH=$HOME/code/activestate/TheHomeRepot/third_party/bin:$PATH
 
 function inventory-benchmark-env() {
     password=$(grep 'localhost:.*:pb_admin' $HOME/.pgpass | cut -d : -f 5)
-    export INV_DB_URL="postgresql://pb_admin:${password}@localhost/inventory-api-v1"
+    export INV_DB_URL="postgresql://pb_admin:${password}@localhost/inventory"
 }
 
 # Manage state tool working with PR environments. 
@@ -65,7 +65,9 @@ function dashboard() {
     export PATH=$PWD/service/dashboard/node_modules/.bin:$PATH
 }
 
-function drop-test-dbs() {
-    psql -l | grep '.*-test-.*' | cut -d '|' -f 1 | xargs -n 1 dropdb
-    psql -l | grep 'test-.*' | cut -d '|' -f 1 | xargs -n 1 dropdb
-}
+alias clean-test-dbs=/home/tyler/code/activestate/TheHomeRepot/extras/scripts/clean-test-dbs.sh
+
+#function clean-test-dbs() {
+    #psql -l -X | grep -E '^.+-test-' | awk -F '|' '{ gsub(/ /, "", $1); print $1;  }' | xargs -t -n 1 dropdb
+#}
+
