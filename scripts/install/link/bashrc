@@ -73,6 +73,7 @@ fi
 # clear temp environment
 unset ENVIRONMENT_DIR
 unset SOURCE_SCRIPTS_DIR
+#export PATH="/home/tyler/.local/ActiveState/StateTool/beta/bin:$PATH"
 
 # -- START ACTIVESTATE INSTALLATION
 export PATH="/home/tyler/.local/ActiveState/StateTool/beta/bin:$PATH"
