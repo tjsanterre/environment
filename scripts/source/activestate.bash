@@ -61,7 +61,7 @@ function st-status() {
         echo "Status: inactive"
     else
         local env=${ACTIVESTATE_API_HOST:-prod}
-        echo "Status: activated"
+        echo "Status: active $ACTIVESTATE_ACTIVATED"
         echo "Env: $env"
     fi
 }
