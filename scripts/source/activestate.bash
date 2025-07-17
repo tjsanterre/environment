@@ -2,15 +2,15 @@
 
 export AWS_PROFILE=sso
 
-#alias bazel='bazelisk'
-#alias minik='minikube kubectl --'
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/development:$HOME/.kube/production
 export KT_BROKERS_DEV=kafka-development.activestate.build:31090,kafka-development.activestate.build:31091,kafka-development.activestate.build:31092
 export KT_BROKERS_PROD=kafka-production.activestate.build:31090,kafka-production.activestate.build:31091,kafka-production.activestate.build:31092
 export KT_BROKERS="$KT_BROKERS_PROD"
 
-# Try here. Delete if it becomes a problem.
-export PATH=$HOME/code/activestate/TheHomeRepot/third_party/bin:$PATH
+#export USE_MYPY_DAEMON=true
+
+alias pinv='psql -h pgdev.activestate.build -U pb_admin inventory_pr_prtemplate'
+
 
 function inventory-benchmark-env() {
     password=$(grep 'localhost:.*:pb_admin' $HOME/.pgpass | cut -d : -f 5)
@@ -48,18 +48,22 @@ function state-tool-pr() {
     fi
 }
 
-# Install state tool from beta branch.
+# Install state tool from release branch.
 function install-state-tool() {
     sh <(curl -q https://platform.activestate.com/dl/cli/install.sh)
 }
 
+# Install state tool from beta branch.
 function install-state-tool-beta() {
     sh <(curl -q https://platform.activestate.com/dl/cli/install.sh) -b beta --force
 }
 
 function thr() {
-    export PATH=$PWD/third_party/bin:$PATH
+    export PATH=$HOME/code/activestate/TheHomeRepot/third_party/bin:$PATH
 }
+
+# Try here. Delete if it becomes a problem.
+thr
 
 function dashboard() {
     export PATH=$PWD/service/dashboard/node_modules/.bin:$PATH

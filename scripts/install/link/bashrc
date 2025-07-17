@@ -18,7 +18,7 @@ set -o history
 
 shopt -s histappend
 export HISTCONTROL='ignoreboth'
-export HISTIGNORE="&:exit:[bf]g:clear:kill:history"
+export HISTIGNORE="&:exit:[bf]g:clear:kill:history:c"
 export PAGER='less'
 
 shopt -s checkwinsize
@@ -76,10 +76,10 @@ unset SOURCE_SCRIPTS_DIR
 #export PATH="/home/tyler/.local/ActiveState/StateTool/beta/bin:$PATH"
 
 # -- START ACTIVESTATE INSTALLATION
-export PATH="/home/tyler/.local/ActiveState/StateTool/beta/bin:$PATH"
 # -- STOP ACTIVESTATE INSTALLATION
 # -- START ACTIVESTATE DEFAULT RUNTIME ENVIRONMENT
-export PATH="/home/tyler/.cache/activestate/bin:$PATH"
+#export PATH="/home/tyler/.cache/activestate/bin:$PATH"
+export PATH="/home/tyler/.local/ActiveState/StateTool/beta/bin:$PATH"
 if [[ ! -z "$ACTIVESTATE_ACTIVATED" && -f "$ACTIVESTATE_ACTIVATED/activestate.yaml" ]]; then
   echo "State Tool is operating on project $ACTIVESTATE_ACTIVATED_NAMESPACE, located at $ACTIVESTATE_ACTIVATED"
 fi
