@@ -13,50 +13,62 @@ alias pinv='psql -h pgdev.activestate.build -U pb_admin inventory_pr_prtemplate'
 
 
 function inventory-benchmark-env() {
-    password=$(grep 'localhost:.*:pb_admin' $HOME/.pgpass | cut -d : -f 5)
+    local password=$(grep 'localhost:.*:pb_admin' $HOME/.pgpass | cut -d : -f 5)
     export INV_DB_URL="postgresql://pb_admin:${password}@localhost/inventory"
 }
 
-# Manage state tool working with PR environments. 
-#
-# Ags:
-# command: status or start or stop
-# pr_name: A PR name like pr12704, only need if command is start
-function state-tool-pr() {
-    usage="Usage: state_tool_pr_env status|start|stop [pr####] "
-
-    if [[ -z "$1" || "$1" == "-h" || "$1" == "--help" ]]; then
-        echo "$usage"
-    elif [[ "$1" == "status" ]]; then
-        if [[ -z "$ACTIVESTATE_API_HOST" ]]; then
-            echo "status: inactive"
-        else
-            echo "status: ${ACTIVESTATE_API_HOST} active"
-        fi
-    elif [[ "$1" == "start" ]]; then
-        if [[ ! "$2" =~ ^pr[0-9]+$ ]]; then
-            echo "Invalid argument: $2, expected value matching pr#### format"
-            echo "$usage"
-        else
-            export ACTIVESTATE_API_HOST="$2"
-        fi
-    elif [[ "$1" == "stop" ]]; then
-        unset ACTIVESTATE_API_HOST
-    else
-        echo "Invalid argument: $1, expected 'start' or 'stop'"
-        echo "$usage"
-    fi
-}
-
 # Install state tool from release branch.
-function install-state-tool() {
+function st-install() {
+    echo "installing state tool"
     sh <(curl -q https://platform.activestate.com/dl/cli/install.sh)
 }
 
 # Install state tool from beta branch.
-function install-state-tool-beta() {
+function st-install-beta() {
+    echo "installing state tool beta"
     sh <(curl -q https://platform.activestate.com/dl/cli/install.sh) -b beta --force
 }
+
+# Switch the environment the state tool is running against.
+#
+# Arguments:
+# ENV - the environment to run state tool against such as: prod, prxxx, or staging
+#
+function st-env() {
+    # Check for valid input first
+    if [[ "$1" != 'prod' ]] && [[ "$1" != 'staging' ]] && [[ ! "$1" =~ ^pr[0-9]+$ ]]; then
+        echo "Invalid or missing environment: ${1:-}"
+        echo "Valid values are: prod, staging, or prNNN (where NNN is any number)"
+        return 1
+    fi
+
+    echo "switching state env to $1"
+    state auth logout
+    pkill 'state-svc*'
+
+    if [[ "$1" == 'prod' ]]; then
+        unset ACTIVESTATE_API_HOST
+        state auth --prompt
+    else  # Will be either 'staging' or prXXXX
+        export ACTIVESTATE_API_HOST="$1.activestate.build"
+        state auth
+    fi
+}
+
+# Report the state tool status.
+function st-status() {
+    if [[ -z "$ACTIVESTATE_ACTIVATED" ]]; then
+        echo "Status: inactive"
+    else
+        local env=${ACTIVESTATE_API_HOST:-prod}
+        echo "Status: activated"
+        echo "Env: $env"
+    fi
+}
+
+alias s="st-status"
+
+# alias s='[[ -z ${ACTIVESTATE_ACTIVATED} ]] && echo "Not in an activated state" || echo "Activated: $ACTIVESTATE_ACTIVATED"'
 
 function thr() {
     export PATH=$HOME/code/activestate/TheHomeRepot/third_party/bin:$PATH
@@ -69,9 +81,8 @@ function dashboard() {
     export PATH=$PWD/service/dashboard/node_modules/.bin:$PATH
 }
 
-alias clean-test-dbs=/home/tyler/code/activestate/TheHomeRepot/extras/scripts/clean-test-dbs.sh
+alias clean-test-dbs='/home/tyler/code/activestate/TheHomeRepot/extras/scripts/clean-test-dbs.sh'
 
 #function clean-test-dbs() {
     #psql -l -X | grep -E '^.+-test-' | awk -F '|' '{ gsub(/ /, "", $1); print $1;  }' | xargs -t -n 1 dropdb
 #}
-
