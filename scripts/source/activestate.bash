@@ -9,8 +9,27 @@ export KT_BROKERS="$KT_BROKERS_PROD"
 
 #export USE_MYPY_DAEMON=true
 
-alias pinv='psql -h pgdev.activestate.build -U pb_admin inventory_pr_prtemplate'
+alias pinv='psql -h pgdev.activestate.build -U dev_inventory inventory_pr_prtemplate'
+alias awsauth='state run aws-sso-auth -a "ActiveState Software Inc." -r PowerUser'
 
+# add role and db to the end
+alias prdb='psql -h pgdev.activestate.build -U'
+
+function prapi() {
+    psql -h pgdev.activestate.build -U dev_api zstaging_pr_pr$1
+}
+
+function prdi() {
+    psql -h pgdev.activestate.build -U dev_dynamic_imports dynamic_imports_pr_pr$1
+}
+
+function prhc() {
+    psql -h pgdev.activestate.build -U dev_head_chef head_chef_pr_pr$1
+}
+
+function prinv() {
+    psql -h pgdev.activestate.build -U dev_inventory inventory_pr_pr$1
+}
 
 function inventory-benchmark-env() {
     local password=$(grep 'localhost:.*:pb_admin' $HOME/.pgpass | cut -d : -f 5)
