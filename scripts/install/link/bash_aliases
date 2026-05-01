@@ -4,6 +4,8 @@
 # clear
 alias c='/usr/bin/clear'
 
+alias code='NODE_OPTIONS="--max-semi-space-size=8192" code'
+
 # ctags
 alias ctags='ctags --fields=+l'
 

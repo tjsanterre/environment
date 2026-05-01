@@ -10,6 +10,8 @@ ENVIRONMENT_DIR="$HOME/environment"
 SOURCE_SCRIPTS_DIR="$ENVIRONMENT_DIR/scripts/source"
 
 # Environment
+export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+export COLORTERM=truecolor
 export EDITOR=vim
 
 # bash
@@ -69,6 +71,8 @@ if [[ -d "$SOURCE_SCRIPTS_DIR" ]]; then
         source $script
     done
 fi
+
+eval "$(direnv hook bash)"
 
 # clear temp environment
 unset ENVIRONMENT_DIR
